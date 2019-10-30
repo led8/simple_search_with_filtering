@@ -3,24 +3,28 @@
   <hr>
   <div class="row">
     <div class="col-xs-12 col-sm-4">
-      <%= simple_form_for :search, url: root_path, method: "GET" do |f| %>
-        <%= f.input :flavors, label: "Category",  collection: $categories, as: :check_boxes %>
-        <%= f.input :strengths, label: "Flavor", collection: $flavors, as: :check_boxes  %>
+      <%= simple_form_for :search, url: root_path, method: "GET", remote: true do |f| %>
+        <%= f.input :categories, label: "Category",  collection: $categories, as: :check_boxes %>
+        <%= f.input :flavors, label: "Flavor", collection: $flavors, as: :check_boxes  %>
         <%= f.submit "Search", class: "btn btn-primary m" %>
         <%= link_to "Reset", root_path  %>
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-8">
-      <% @cocktails.each do |cocktail| %>
-        <h3><%= cocktail.name %></h3>
-        <p><%= cocktail.preparation %></p>
-        <button class="btn-primary">
-          <%= cocktail.flavor_list %>
-        </button>
-        <button class="btn-danger">
-          <%= cocktail.category_list %>
-        </button>
-      <% end %>
+     <div id="cocktails">
+       <%= render 'cocktail', cocktails: @cocktails %>
+     </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  var checkBoxes = document.querySelectorAll(".form-check-input");
+  var form = document.querySelector('form');
+
+  for (const check of checkBoxes) {
+    check.addEventListener( 'change', function() {
+      Rails.fire(form, 'submit');
+    });
+  }
+</script>
