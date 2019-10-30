@@ -28,6 +28,7 @@ gem 'simple_form'
 gem "bootstrap", ">= 4.3.1"
 
 gem 'acts-as-taggable-on', '~> 6.0'
+gem 'pg_search'
 
 
 # Use Redis adapter to run Action Cable in production
