@@ -2,8 +2,16 @@ class CocktailsController < ApplicationController
   def index
     if params["search"]
       @filter = params["search"]["categories"].concat(params["search"]["flavors"]).flatten.reject(&:blank?)
-      @cocktails = @filter.empty? ? Cocktail.all : Cocktail.all.tagged_with(@filter, any: true)
-      # @cocktails = Cocktail.all.global_search("#{@filter}")
+      @name = params["search"]["names"]
+      if @filter.empty?
+        @coktails = Cocktail.all.where("name ILIKE ?", "%#{@name}%")
+      elsif params["search"]["names"].nil?
+        @cocktails = Cocktail.all.tagged_with(@filter, any: true)
+      elsif !@filter.empty? && !params["search"]["names"].nil?
+        @cocktails = @filter.empty? ? Cocktail.all : Cocktail.all.tagged_with(@filter, any: true).where("name ILIKE ?", "%#{@name}%")
+      else
+        @cocktails = Cocktail.all
+      end
     else
       @cocktails = Cocktail.all
     end

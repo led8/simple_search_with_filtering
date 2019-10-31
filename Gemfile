@@ -31,6 +31,7 @@ gem 'acts-as-taggable-on', '~> 6.0'
 gem 'pg_search'
 gem 'select2-rails'
 gem 'underscore-rails'
+gem 'jquery-rails'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
