@@ -1,5 +1,7 @@
 {
   "name": "simple_search_filters",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "js-autocomplete": "^1.0.4"
+  }
 }
