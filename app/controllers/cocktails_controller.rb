@@ -19,5 +19,6 @@ class CocktailsController < ApplicationController
       format.html
       format.js
     end
+    @cocktails_names = Cocktail.pluck(:name).sort
   end
 end
